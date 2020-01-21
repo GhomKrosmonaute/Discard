@@ -1,0 +1,27 @@
+{
+  "name": "discard",
+  "version": "1.0.0",
+  "description": "Card game inter-servers with discord members",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "card",
+    "game",
+    "discord",
+    "bot",
+    "members"
+  ],
+  "author": "ghom",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite-pool": "^0.2.3",
+    "canvas": "^2.6.1",
+    "discord.js": "^11.5.1",
+    "enmap": "^5.2.4"
+  }
+}
