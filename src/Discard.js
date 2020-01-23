@@ -1,56 +1,54 @@
 
+const EventEmitter = require('events')
 const Canvas = require('canvas')
-const enmap = require('enmap')
 const Discord = require('discord.js')
 const Card = require('./Card')
 
-process.env.database = new Enmap({
-    name: "discard",
-    autoFetch: true,
-    fetchAll: false
-})
+class Discard extends EventEmitter {
 
-class Discard {
+    constructor( client, decks = [], cards = [] ){ super()
 
-    constructor(){
+        this.client = client
 
+        for(const deck of decks){
+            const { guild_id } = Deck.resolve(deck)
+            if(this.client.guilds.has(guild_id))
+            this.client.guilds.get(guild_id).deck = new Deck(deck)
+            else this.emit('deckRemove', guild_id)
+            
+        }
+
+        for(const card of cards){
+            const { guild_id, user_id } = Card.resolve(card)
+            if(this.client.guilds.get(guild_id).members.has(user_id))
+            this.client.guilds.get(guild_id).members.get(user_id).card = new Card(card)
+            else this.emit('cardRemove', guild_id, user_id)
+        }
+
+        this.client.on('guildRemove', guild => {
+            delete guild.deck
+            this.emit('deckRemove', guild.id)
+        })
+
+        this.client.on('guildMemberRemove', member => {
+            delete member.card
+            this.emit('cardRemove', member.guild.id, member.id)
+        })
+        
     }
 
-    async memberCard( member, options = {} ){
+    getDeck( guild ){
+        if(guild.deck) return guild.deck
+        guild.deck = new Deck(this, guild)
+        this.emit('deckCreate', guild, guild.deck)
+        return guild.deck
+    }
 
-
-        
-
-        
-
-        
-
-        
-
-        ctx.font = (width / 9) + "px Verdana"
-        ctx.fillStyle = 'white'
-        ctx.strokeText(props.hp, width * (1.35/5), height * (2.02/3))
-        ctx.fillText(props.hp, width * (1.35/5), height * (2.02/3))
-        ctx.strokeText(props.sh, width * (3/5), height * (2.02/3))
-        ctx.fillText(props.sh, width * (3/5), height * (2.02/3))
-        ctx.strokeText(props.at, width * (4.35/5), height * (2.02/3))
-        ctx.fillText(props.at, width * (4.35/5), height * (2.02/3))
-
-        ctx.globalAlpha = 1
-
-        ctx.font = (width / 12) + "px Verdana"
-        ctx.fillStyle = '#FFBF00'
-        ctx.textAlign = 'right'
-        ctx.fillText(props.pw, width - (width / 11), height - 2)
-
-        ctx.font = (width / 15) + "px Verdana"
-        ctx.fillStyle = 'white'
-        ctx.textAlign = 'center'
-        ctx.fillText(member.guild.name, width / 2, height - 5, width * .6)
-
-        ctx.drawImage( this.foreground, 0, 0, width, height )
-
-        return new Card( member, canvas, props )
+    getCard( member ){
+        if(member.card) return member.card
+        member.card = new Card(this, member)
+        this.emit('cardCreate', member, member.card)
+        return member.card
     }
 
 }

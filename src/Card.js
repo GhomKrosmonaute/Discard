@@ -4,12 +4,19 @@ const VisualCard = require('./VisualCard')
 
 class Card {
 
-    constructor( member ){
+    constructor( discard, options ){
 
-        this.boss = member.guild.owner.id === member.id
-        this.member = member
-        this.visual = new VisualCard( this )
-        
+        if(options instanceof Discord.GuildMember){
+            this.member = options
+            this.genProps()
+        }else if(typeof options === 'string'){
+            this.fromString(options)
+        }else{
+            this.power = options.power
+            this.health = options.health
+            this.shield = options.shield
+            this.energy = options.energy
+        }
 
     }
 
@@ -29,8 +36,61 @@ class Card {
 
     }
 
-    get attachment(){
-        return this.visual.attachment
+    toString(){
+
+        return [
+            this.member.guild.id,
+            this.member.id,
+            this.power,
+            this.shield,
+            this.energy
+        ].join('/')
+
+    }
+
+    fromString( string ){
+
+        const {
+            guild_id,
+            user_id,
+            power,
+            health,
+            shield,
+            energy
+        } = Card.resolve(string)
+
+        if(!this.discard.client.guilds.has(guild_id)){
+            return this.discard.emit('deckRemove', guild_id)
+        }
+        if(!this.discard.client.guilds.get(guild_id).members.has(user_id)){
+            return this.discard.emit('cardRemove', guild_id, user_id)
+        }
+
+        this.member = this.discard.client.guilds.get(guild_id).members.get(user_id)
+        this.power = power
+        this.health = health
+        this.shield = shield
+        this.energy = energy
+
+    }
+
+    static resolve( string ){
+        const [
+            guild_id,
+            user_id,
+            power,
+            health,
+            shield,
+            energy,
+        ] = string.split('/')
+        return {
+            guild_id,
+            user_id,
+            power,
+            health,
+            shield,
+            energy
+        }
     }
 
 }
