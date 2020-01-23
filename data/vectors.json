@@ -1,0 +1,44 @@
+{
+    "card": {
+        "x":0,
+        "y":0,
+        "width":400,
+        "height":600
+    },
+    "avatar": {
+        "x":32,
+        "y":29,
+        "width":273,
+        "height":273
+    },
+    "guildIcon": {
+        "x":281,
+        "y":481,
+        "width":133,
+        "height":133
+    },
+    "guildName": {
+        "x":7,
+        "y":542,
+        "width":262,
+        "height":50
+    },
+    "infoTop": {
+        "x":55,
+        "y":267,
+        "width":168,
+        "height":24
+    },
+    "infoBottom": {
+        "x":55,
+        "y":298,
+        "width":182,
+        "height":27
+    },
+    "body": {
+        "x":27,
+        "y":349,
+        "width":282,
+        "height":161
+    }
+}
