@@ -34,12 +34,15 @@ discard.on('cardRemove', (guild_id, member_id) => {
 })
 
 discard.on('deckCreate', deck => {
-    // add deck to your database
+    // add deck to your database with guild id
+    const guild = deck.guild
     const deckSerial = deck.toString()
 })
 
 discard.on('cardCreate', card => {
-    // add card to your database
+    // add card to your database width guild id and user id
+    const guild = card.member.guild
+    const member = card.member
     const cardSerial = card.toString()
 })
 
