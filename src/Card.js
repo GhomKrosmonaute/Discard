@@ -16,8 +16,8 @@ class Card {
     }
 
     setTheme( theme ){
-        if(theme in this.discard.template)
-        this.theme = theme
+        if(this.discard.template.hasOwnProperty(theme))
+            this.theme = theme
     }
 
     genProps(){
@@ -61,8 +61,8 @@ class Card {
     fromString( string ){
 
         const data = JSON.parse(string)
-        const { guild_id, user_id } = data
 
+        const { guild_id, user_id } = data
         delete data.guild_id
         delete data.user_id
 
