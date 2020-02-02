@@ -29,5 +29,7 @@ La guild la plus grosse se voit retirer aléatoirement des cartes jusqu'à égal
 Les deux guildes obtiennent **1 points de nitro** au premier tour, 2 au second, 3 au troisième...
 Chaque tour, une guild va pouvoir engager au combat autant de cartes choisies aléatoirement que les points de nitro permettent d'acheter.<br><br>
 
+Chaque carte gagne autant de points de nitro que le deck pour utiliser ses moves (compétences).
+
 Ne peut etre lancé que par un boss envers une guilde possédant au maximum une différence de membres de 20%.
 Ces combats coutent **5 point d'énergie** à la guilde, la guilde attaquante gagnante regagne **3 point d'énergie**. Selon le résultat, **l'ELO de la guilde attaquante augmentera ou diminuera normalement**. Tant dis que celui de la guilde attaquée **changera de moitié**.

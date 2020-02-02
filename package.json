@@ -19,7 +19,17 @@
   "author": "ghom",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite-pool": "^0.2.3",
     "canvas": "^2.6.1",
-    "discord.js": "^11.5.1"
-  }
+    "discord.js": "^11.5.1",
+    "enmap": "^5.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamilleAbella/Discard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CamilleAbella/Discard/issues"
+  },
+  "homepage": "https://github.com/CamilleAbella/Discard#readme"
 }

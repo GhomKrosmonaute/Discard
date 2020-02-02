@@ -1,5 +1,5 @@
 
 module.exports = {
-    Discard : require('./src/Discard'),
+    Discard : require('./app/Discard'),
     events : require('./src/events.json')
 }

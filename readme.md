@@ -10,41 +10,7 @@ const Discord = require('discord.js')
 const Discard = require('discard')
 
 const client = new Discord.Client()
-const discard = new Discard.Client( client, {
-    getCardOnDatabase: member => {
-        if(/* check if card is on your database */){
-            return cardSerial
-        }
-        return false
-    },
-    getDeckOnDatabase: guild => {
-        if(/* check if deck is on your database */){
-            return deckSerial
-        }
-        return false
-    }
-})
-
-discard.on('deckRemove', guild_id => {
-    // remove deck from your database
-})
-
-discard.on('cardRemove', (guild_id, member_id) => {
-    // remove card from your database
-})
-
-discard.on('deckCreate', deck => {
-    // add deck to your database with guild id
-    const guild = deck.guild
-    const deckSerial = deck.toString()
-})
-
-discard.on('cardCreate', card => {
-    // add card to your database width guild id and user id
-    const guild = card.member.guild
-    const member = card.member
-    const cardSerial = card.toString()
-})
+const discard = new Discard.Client( client )
 
 client.on('message', async message => {
 
