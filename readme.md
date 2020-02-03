@@ -21,7 +21,9 @@ client.on('message', async message => {
     ) return
 
     if(message.content === 'mycard'){
-        message.channel.send( await discard.getCard( message.member ).attachment )
+        await discard.loaded
+        discard.getCard( message.member )
+        message.channel.send( message.member.card.attachment )
     }
 
 })
