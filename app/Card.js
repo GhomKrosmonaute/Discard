@@ -33,6 +33,8 @@ module.exports = class Card {
 
     }
 
+    get enmap(){ return this.discard.enmap }
+
     _getProp( name ){ return this.discard.enmap.get( guild.id + '-' + member.id, name ) }
     _setProp( name, value ){ this.discard.enmap.set( guild.id + '-' + member.id, name, value ) }
 

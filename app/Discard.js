@@ -28,6 +28,10 @@ class Client {
         
     }
 
+    addMove(){
+        // TODO
+    }
+
     getDeck( guild ){
         if(guild.deck) return guild.deck
         new Deck( this, guild )

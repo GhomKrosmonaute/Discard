@@ -15,6 +15,8 @@ module.exports = class Player {
 
     }
 
+    get enmap(){ return this.discard.enmap }
+
     async get avatar(){
         if(!this.avatar)
         this.avatar = await Canvas.loadImage(this.card.member.user.displayAvatarURL)
