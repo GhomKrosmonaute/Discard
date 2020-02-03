@@ -6,8 +6,7 @@ module.exports = class Deck extends Discord.Collection {
         this.discard = discard
         this.guild = guild
 
-        if(!this.discard.enmap.has( guild.id ))
-        this.discard.enmap.set( guild.id, {
+        this.discard.enmap.ensure( guild.id, {
             elo: 1000,
             energy: 10,
             cards: {}

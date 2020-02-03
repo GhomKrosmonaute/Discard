@@ -1,6 +1,7 @@
 
 const Canvas = require('canvas')
 const Discord = require('discord.js')
+const drawImage = require('../utils/drawImage')
 
 module.exports = class Card {
 
@@ -8,27 +9,25 @@ module.exports = class Card {
 
         this.discard = discard
         this.member = member
-        this.deck = discard.getDeck(member.guild)
 
-        if(!discard.enmap.has( guild.id + '-' + member.id )){
-            const data = {
-                elo: 1000,
-                energy: 10,
-                boss: member.id === member.guild.owner.id,
-                health: 2,
-                speed: 2,
-                attack: 2,
-                moves: []
-            }
-            data.power = Math.ceil( Math.random() * 5 ) + (data.boss ? 10 : 0)
-            for(let i=0; i<data.power; i++){
-                const rdm = Math.random()
-                if(rdm < 1/3)       data.health ++
-                else if(rdm < 2/3)  data.speed ++
-                else                data.attack ++
-            }
-            discard.enmap.set( guild.id + '-' + member.id, data)
+        const data = {
+            elo: 1000,
+            energy: 10,
+            boss: member.id === member.guild.owner.id,
+            health: 2,
+            speed: 2,
+            attack: 2,
+            moves: []
         }
+        data.power = Math.ceil( Math.random() * 5 ) + (data.boss ? 10 : 0)
+        for(let i=0; i<data.power; i++){
+            const rdm = Math.random()
+            if(rdm < 1/3)       data.health ++
+            else if(rdm < 2/3)  data.speed ++
+            else                data.attack ++
+        }
+
+        discard.enmap.ensure( guild.id + '-' + member.id, data)
         
         member.card = this
 
@@ -50,17 +49,23 @@ module.exports = class Card {
     get attack(){ return this._getProp('attack') }
     get moves(){ return this._getProp('moves') }
 
-    get player(){ return this.discard.getPlayer(this.member.user) }
+    get deck(){ return this.discard.getDeck( this.member.guild ) }
+    get player(){ return this.discard.getPlayer( this.member.user ) }
 
     get theme(){ return this.discard.template[this.discard.getPlayer( this.member.user ).theme] }
     set theme( theme ){ this.discard.getConfig( this.member.user ).theme = theme }
 
     async get canvas(){
         await this.discard.loaded
-        const theme = this.theme
         const canvas = Canvas.createCanvas( 400, 600 )
         const ctx = this.canvas.getContext('2d')
-        // TODO: make card from template
+
+        // await this.player.avatar
+        drawImage( ctx, this.theme.background )
+        drawImage( ctx, await this.player.avatar, 'avatar' )
+        drawImage( ctx, this.theme.middle )
+        drawImage( ctx, this.theme.foreground )
+
         return canvas
     }
 
