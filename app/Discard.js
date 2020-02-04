@@ -1,10 +1,13 @@
 
-const { loadImage } = require('canvas')
-const fs = require('fs').promises
-const Enmap = require('enmap')
-const Card = require('./Card')
-const Deck = require('./Deck')
-const Player = require('./Player')
+const { loadImage } = require('canvas'),
+    fs = require('fs').promises,
+    Enmap = require('enmap'),
+    Card = require('./Card'),
+    Deck = require('./Deck'),
+    Player = require('./Player'),
+    Move = require('./Move'),
+    Fight = require('./Fight'),
+    Buffer = require('./Buffer')
 
 class Client {
 
@@ -28,7 +31,11 @@ class Client {
         
     }
 
-    addMove(){
+    /**
+     * @param {MoveOptions} options
+     */
+
+    addMove( options ){
         // TODO
     }
 
@@ -56,5 +63,8 @@ module.exports = {
     Client,
     Card,
     Deck,
-    Player
+    Player,
+    Move,
+    Fight,
+    Buffer
 }

@@ -28,9 +28,10 @@ client.on('message', async message => {
         discard.getCard( message.member )
             // generate card if not exists
             // and attach card to member
+            // and return the card
 
         message.channel.send( message.member.card.attachment )
-            // show card
+            // send card attachment
 
     }
 
@@ -38,12 +39,13 @@ client.on('message', async message => {
 
         await discard.loaded
 
-        discard.getCard( message.guild )
+        discard.getDeck( message.guild )
             // generate deck if not exists
             // and attach deck to guild
+            // and return the deck
 
         message.channel.send( message.guild.deck.attachment )
-            // show deck info
+            // send deck info attachment
 
     }
 

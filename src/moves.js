@@ -1,13 +1,5 @@
 
 const buffableStats = [ 'speed', 'attack' ]
-const template = {
-    name: 'subarashi move',
-    tags: ['stat','debuff','buff','bonus','malus'],
-    targets: ['allies','ally','ennemies','enemy','me','everyone'],
-    nitro: 1,
-    buff: {},
-    debuff: []
-}
 
 const moves = []
 
