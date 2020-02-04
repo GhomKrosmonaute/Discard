@@ -1,5 +1,7 @@
 
-module.exports = class Deck extends Discord.Collection {
+const { Collection } = require('discord.js')
+
+module.exports = class Deck {
 
     constructor( discard, guild ){ super()
 
@@ -18,16 +20,20 @@ module.exports = class Deck extends Discord.Collection {
 
     }
 
-    fetch(){
-        this.clear()
-        this.guild.members.forEach( member => {
-            this.set( member.id, this.discard.getCard(member) )
-        })
-    }
-
     get enmap(){ return this.discard.enmap }
 
     get elo(){ return this.enmap.get( guild.id, 'elo' ) }
     set elo( elo ){ this.enmap.set( guild.id, 'elo', elo ) }
+
+    get cards(){
+        const cards = new Collection
+        this.guild.members.forEach( member => {
+            cards.set( member.id, this.discard.getCard(member) )
+        })
+    }
+
+    forEach( callback ){ this.cards.forEach(callback) }
+    filter( callback ){ return this.cards.filter(callback) }
+    map( callback ){ return this.cards.map(callback) }
 
 }
