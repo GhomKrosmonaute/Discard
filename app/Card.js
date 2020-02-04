@@ -35,8 +35,8 @@ module.exports = class Card {
 
     get enmap(){ return this.discard.enmap }
 
-    _getProp( name ){ return this.discard.enmap.get( guild.id + '-' + member.id, name ) }
-    _setProp( name, value ){ this.discard.enmap.set( guild.id + '-' + member.id, name, value ) }
+    _getProp( name ){ return this.enmap.get( guild.id + '-' + member.id, name ) }
+    _setProp( name, value ){ this.enmap.set( guild.id + '-' + member.id, name, value ) }
 
     get boss(){ return this._getProp('boss') }
 
@@ -55,7 +55,7 @@ module.exports = class Card {
     get player(){ return this.discard.getPlayer( this.member.user ) }
 
     get theme(){ return this.discard.template[this.discard.getPlayer( this.member.user ).theme] }
-    set theme( theme ){ this.discard.getConfig( this.member.user ).theme = theme }
+    set theme( theme ){ this.discard.getPlayer( this.member.user ).theme = theme }
 
     async get canvas(){
         await this.discard.loaded

@@ -31,11 +31,11 @@ module.exports = class Player {
 
     set theme( theme ){
         if(this.discard.template.hasOwnProperty(theme))
-        this.discard.enmap.set( user.id, 'theme', theme )
+        this.enmap.set( user.id, 'theme', theme )
     }
 
     get theme(){
-        return this.discard.enmap.get( user.id, 'theme' )
+        return this.enmap.get( user.id, 'theme' )
     }
 
 }

@@ -21,9 +21,30 @@ client.on('message', async message => {
     ) return
 
     if(message.content === 'mycard'){
+
         await discard.loaded
+            // wait for discard data are loaded
+
         discard.getCard( message.member )
+            // generate card if not exists
+            // and attach card to member
+
         message.channel.send( message.member.card.attachment )
+            // show card
+
+    }
+
+    if(message.content === 'mydeck'){
+
+        await discard.loaded
+
+        discard.getCard( message.guild )
+            // generate deck if not exists
+            // and attach deck to guild
+
+        message.channel.send( message.guild.deck.attachment )
+            // show deck info
+
     }
 
 })
