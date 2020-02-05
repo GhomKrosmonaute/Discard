@@ -33,14 +33,14 @@ for(const stat of buffableStats){
         nitro: 2,
         debuff: [stat]
     })
-    for(let i=1; i<5; i++){
+    for(let i=1; i<3; i++){
         moves.push({
             name: stat + ' boost',
             tags: ['stat','buff','bonus',stat],
             targets: ['ally','me'],
             nitro: i,
             buff: {
-                [stat]: 10 * i // in percent of base stat
+                [stat]: i
             }
         })
         moves.push({
@@ -49,7 +49,7 @@ for(const stat of buffableStats){
             targets: ['ennemy'],
             nitro: i,
             buff: {
-                [stat]: -10 * i // in percent of base stat
+                [stat]: -i
             }
         })
     }

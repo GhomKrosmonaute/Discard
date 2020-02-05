@@ -30,6 +30,7 @@ module.exports = class Deck {
         this.guild.members.forEach( member => {
             cards.set( member.id, this.discard.getCard(member) )
         })
+        return cards
     }
 
     forEach( callback ){ this.cards.forEach(callback) }
