@@ -1,6 +1,6 @@
 
 import Client from './Client'
-import { DiscardGuild } from '../docs/interfaces'
+import { DiscardGuild, DeckData } from '../docs/interfaces'
 import { Snowflake, Collection } from 'discord.js'
 import Card from './Card'
 
@@ -23,6 +23,8 @@ export default class Deck {
         guild.deck = this
 
     }
+
+    public get data():DeckData { return this.enmap.get( this.guild.id ) }
 
     public get enmap():any { return this.discard.enmap }
 

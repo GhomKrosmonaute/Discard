@@ -4,6 +4,7 @@ import { Guild, GuildMember, User } from 'discord.js'
 import Deck from '../app/Deck'
 import Card from '../app/Card'
 import Player from '../app/Player'
+import { Image } from 'canvas'
 
 export interface MoveOptions {
     name: string,
@@ -17,6 +18,16 @@ export interface MoveOptions {
     debuff?: Buffable[]
 }
 
+export interface Theme {
+    background: Image,
+    foreground: Image,
+    middle: Image
+}
+
+export interface DeckData {
+    
+}
+
 export interface CardData {
     power: number,
     elo: number,
@@ -26,6 +37,10 @@ export interface CardData {
     speed: number,
     attack: number,
     moves: MoveOptions[]
+}
+
+export interface PlayerData {
+    theme: string
 }
 
 export interface DiscardGuild extends Guild {

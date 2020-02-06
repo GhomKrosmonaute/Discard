@@ -5,7 +5,9 @@ import Client from './Client'
 import { Attachment } from 'discord.js'
 import drawImage from '../utils/drawImage'
 import { VectorsName } from '../docs/enums'
-import { CardData, DiscardGuildMember } from '../docs/interfaces'
+import { CardData, DiscardGuildMember, Theme } from '../docs/interfaces'
+import Deck from './Deck'
+import Player from './Player'
 
 export default class Card {
 
@@ -42,29 +44,31 @@ export default class Card {
 
     }
 
-    public get enmap(){ return this.discard.enmap }
+    public get data():CardData { return this.enmap.get( this.member.guild.id + '-' + this.member.id ) }
 
-    private _getProp( name:string ){ return this.enmap.get( this.member.guild.id + '-' + this.member.id, name ) }
+    public get enmap():any { return this.discard.enmap }
+
+    private _getProp( name:string ):any { return this.enmap.get( this.member.guild.id + '-' + this.member.id, name ) }
     private _setProp( name:string, value:any ){ this.enmap.set( this.member.guild.id + '-' + this.member.id, name, value ) }
 
-    public get boss(){ return this._getProp('boss') }
+    public get boss():boolean { return this._getProp('boss') }
 
-    public get elo(){ return this._getProp('elo') }
-    public set elo( elo ){ this._setProp( 'elo', elo ) }
+    public get elo():number { return this._getProp('elo') }
+    public set elo( elo:number ){ this._setProp( 'elo', elo ) }
 
-    public get energy(){ return this._getProp('energy') }
-    public set energy( energy ){ this._setProp( 'energy', energy ) }
+    public get energy():number { return this._getProp('energy') }
+    public set energy( energy:number ){ this._setProp( 'energy', energy ) }
 
-    public get health(){ return this._getProp('health') }
-    public get speed(){ return this._getProp('speed') }
-    public get attack(){ return this._getProp('attack') }
-    public get moves(){ return this._getProp('moves') }
+    public get health():number { return this._getProp('health') }
+    public get speed():number { return this._getProp('speed') }
+    public get attack():number { return this._getProp('attack') }
+    public get moves():number { return this._getProp('moves') }
 
-    public get deck(){ return this.discard.getDeck( this.member.guild ) }
-    public get player(){ return this.discard.getPlayer( this.member.user ) }
+    public get deck():Deck { return this.discard.getDeck( this.member.guild ) }
+    public get player():Player { return this.discard.getPlayer( this.member.user ) }
 
-    public get theme(){ return this.discard.themes[this.discard.getPlayer( this.member.user ).theme] }
-    public set theme( theme ){ this.discard.getPlayer( this.member.user ).theme = theme }
+    public get theme():Theme { return this.discard.themes[this.discard.getPlayer( this.member.user ).theme] }
+    public setTheme( theme:string ){ this.discard.getPlayer( this.member.user ).theme = theme }
 
     public async getCanvas():Promise<CanvasES6>|never {
 

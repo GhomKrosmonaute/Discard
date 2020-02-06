@@ -1,7 +1,8 @@
 
 import Client from './Client'
 import { Image } from 'canvas'
-import { DiscardUser } from '../docs/interfaces'
+import { DiscardUser, PlayerData } from '../docs/interfaces'
+import Card from './Card'
 
 const Canvas = require('canvas')
 
@@ -16,35 +17,38 @@ export default class Player {
         this.discard = discard
         this.user = user
 
-        if(!this.discard.enmap.has( user.id ))
-        this.discard.enmap.set( user.id, {
+        const playerData:PlayerData = {
             theme: 'dark'
-        })
+        }
+
+        this.discard.enmap.ensure( user.id, playerData)
 
         user.player = this
 
     }
 
-    get enmap(){ return this.discard.enmap }
+    public get data():PlayerData { return this.enmap.get( this.user.id ) }
 
-    async getAvatar():Promise<Image> {
+    public get enmap():any { return this.discard.enmap }
+
+    public async getAvatar():Promise<Image> {
         if(!this.avatar)
         this.avatar = await Canvas.loadImage(this.user.displayAvatarURL)
         return this.avatar
     }
 
-    get cards(){
+    public get cards():Card[] {
         return this.discard.client.guilds
             .filter( guild => guild.members.has(this.user.id) )
             .map( guild => this.discard.getCard(guild.members.get(this.user.id)) )
     }
 
-    set theme( theme ){
+    public set theme( theme:string ){
         if(this.discard.themes.hasOwnProperty(theme))
         this.enmap.set( this.user.id, 'theme', theme )
     }
 
-    get theme(){
+    public get theme():string {
         return this.enmap.get( this.user.id, 'theme' )
     }
 
