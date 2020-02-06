@@ -2,3 +2,4 @@ node_modules/
 *.pdn
 test.js
 data/
+dist/
