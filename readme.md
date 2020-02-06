@@ -30,7 +30,7 @@ client.on('message', async message => {
             // and attach card to member
             // and return the card
 
-        message.channel.send( message.member.card.attachment )
+        message.channel.send( await message.member.card.getAttachment() )
             // send card attachment
 
     }
@@ -44,7 +44,7 @@ client.on('message', async message => {
             // and attach deck to guild
             // and return the deck
 
-        message.channel.send( message.guild.deck.attachment )
+        message.channel.send( message.guild.deck.getAttachment() )
             // send deck info attachment
 
     }

@@ -1,2 +1,2 @@
 
-module.exports = require('./app/Discard')
+module.exports = require('./dist/app/Discard')
