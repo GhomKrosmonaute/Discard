@@ -1,7 +1,9 @@
 
 # Discard
 
-Discord card game staging the members of Discord. Each guild is a deck.
+**WORK IN PROGRESS**  
+Discord card game staging the members of Discord. Each guild is a deck.  
+Visit the documentation [here](./docs/index.md)
 
 ## Usage:
 

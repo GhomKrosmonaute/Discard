@@ -20,8 +20,8 @@ const vectors:Vector[] = [
         name: VectorName.GuildIcon,
         x:281,
         y:481,
-        width:140,
-        height:140
+        width:143,
+        height:143
     },
     {
         name: VectorName.GuildName,
