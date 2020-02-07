@@ -14,12 +14,12 @@
     "guildIcon": {
         "x":281,
         "y":481,
-        "width":133,
-        "height":133
+        "width":140,
+        "height":140
     },
     "guildName": {
         "x":7,
-        "y":542,
+        "y":540,
         "width":262,
         "height":50
     },
@@ -39,6 +39,6 @@
         "x":27,
         "y":349,
         "width":282,
-        "height":161
+        "height":25
     }
 }

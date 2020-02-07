@@ -29,12 +29,11 @@ export default class Client {
             const themes = images.filter( name => !name.includes('.') )
             for(const theme of themes){
                 images = await fs.readdir(path.resolve('./themes',theme))
+                this.themes[theme] = {}
                 for(const image of images){
-                    if(this.themes[theme] !== undefined)
                     this.themes[theme][image.replace('.png','')] = await loadImage(
                         path.resolve('./themes',theme,image)
                     )
-                    else delete this.themes[theme]
                 }
             }
             resolve(this)

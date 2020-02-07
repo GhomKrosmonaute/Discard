@@ -8,8 +8,8 @@ const Canvas = require('canvas')
 
 export default class Player {
 
+    private avatar:Image
     public discard:Client
-    public avatar:Image
     public user:DiscardUser
 
     constructor( discard:Client, user:DiscardUser ){

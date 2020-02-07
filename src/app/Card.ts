@@ -3,7 +3,7 @@ const Canvas = require('canvas')
 import {Canvas as CanvasES6} from 'canvas'
 import Client from './Client'
 import { Attachment } from 'discord.js'
-import drawImage from '../utils/drawImage'
+import { drawImage, drawText } from '../utils/drawing'
 import { VectorsName } from '../docs/enums'
 import { CardData, DiscardGuildMember, Theme } from '../docs/interfaces'
 import Deck from './Deck'
@@ -79,7 +79,12 @@ export default class Card {
 
         drawImage( ctx, this.theme.background )
         drawImage( ctx, await this.player.getAvatar(), VectorsName.Avatar )
+        drawImage( ctx, await this.deck.getIcon(), VectorsName.GuildIcon )
         drawImage( ctx, this.theme.middle )
+        drawText( ctx, this.member.guild.name, VectorsName.GuildName )
+        drawText( ctx, 'Card: ' + this.member.displayName, VectorsName.InfoTop, this.member.displayHexColor )
+        drawText( ctx, 'Player: ' + this.member.user.username, VectorsName.InfoBottom )
+        drawText( ctx, `Bla bla bla\nBliblibli\nEt tout et tout...\nBite`, VectorsName.Body, '#ffffff' )
         drawImage( ctx, this.theme.foreground )
 
         return canvas

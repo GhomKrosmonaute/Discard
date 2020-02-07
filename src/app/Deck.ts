@@ -3,9 +3,13 @@ import Client from './Client'
 import { DiscardGuild, DeckData } from '../docs/interfaces'
 import { Snowflake, Collection } from 'discord.js'
 import Card from './Card'
+import { Image } from 'canvas'
+
+const Canvas = require('canvas')
 
 export default class Deck {
 
+    private icon:Image
     public discard:Client
     public guild:DiscardGuild
 
@@ -16,8 +20,7 @@ export default class Deck {
 
         this.enmap.ensure( guild.id, {
             elo: 1000,
-            energy: 10,
-            cards: {}
+            energy: 10
         })
 
         guild.deck = this
@@ -37,6 +40,12 @@ export default class Deck {
             cards.set( member.id, this.discard.getCard(member) )
         })
         return cards
+    }
+
+    public async getIcon():Promise<Image> {
+        if(!this.icon)
+        this.icon = await Canvas.loadImage(this.guild.iconURL)
+        return this.icon
     }
 
     public forEach( callback:any ):void { this.cards.forEach(callback) }

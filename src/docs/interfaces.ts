@@ -25,7 +25,8 @@ export interface Theme {
 }
 
 export interface DeckData {
-    
+    energy: number,
+    elo: number
 }
 
 export interface CardData {
