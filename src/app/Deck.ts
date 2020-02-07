@@ -1,6 +1,6 @@
 
 import Client from './Client'
-import { DiscardGuild, DeckData } from '../docs/interfaces'
+import { DiscardGuild, DeckData } from '../config/interfaces'
 import { Snowflake, Collection } from 'discord.js'
 import Card from './Card'
 import { Image } from 'canvas'

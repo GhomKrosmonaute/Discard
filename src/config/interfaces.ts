@@ -11,11 +11,9 @@ export interface MoveOptions {
     tags: Tag[],
     targets: Target[],
     nitro: number,
-    buff?: {
-        speed?: number,
-        attack?: number
-    }
+    buff?: [Buffable,number][]
     debuff?: Buffable[]
+    damage?: number
 }
 
 export interface Theme {

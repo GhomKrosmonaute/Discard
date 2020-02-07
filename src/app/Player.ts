@@ -1,7 +1,7 @@
 
 import Client from './Client'
 import { Image } from 'canvas'
-import { DiscardUser, PlayerData } from '../docs/interfaces'
+import { DiscardUser, PlayerData } from '../config/interfaces'
 import Card from './Card'
 
 const Canvas = require('canvas')

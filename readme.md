@@ -53,23 +53,3 @@ client.on('message', async message => {
 
 client.login(TOKEN)
 ```
-
-## Entities:
-
-### Discard.Client
-
-```js
-// on comming
-```
-
-### Discard.Card
-
-```js
-// on comming
-```
-
-### Discard.Deck
-
-```js
-// on comming
-```

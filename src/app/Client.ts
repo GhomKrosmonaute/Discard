@@ -1,11 +1,12 @@
 
 import { Client as DiscordClient, Guild, GuildMember, User } from 'discord.js'
-import { DiscardGuild, DiscardGuildMember, DiscardUser, MoveOptions } from '../docs/interfaces'
+import { DiscardGuild, DiscardGuildMember, DiscardUser, MoveOptions } from '../config/interfaces'
 import { promises as fs } from 'fs'
 import { loadImage } from 'canvas'
 import Deck from './Deck'
 import Card from './Card'
 import Player from './Player'
+import moveOptions from '../config/moves'
 
 const path = require('path')
 const Enmap = require('enmap')
@@ -22,6 +23,7 @@ export default class Client {
 
         this.client = client
         this.enmap = new Enmap({name})
+        this.moveOptions = moveOptions
 
         this.loaded = new Promise( async resolve => {
             this.themes = {}

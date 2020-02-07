@@ -1,7 +1,7 @@
 
-import * as vectors from '../docs/vectors.json'
+import * as vectors from '../config/vectors.json'
 import { CanvasRenderingContext2D, Image } from 'canvas'
-import { VectorsName } from '../docs/enums'
+import { VectorsName } from '../config/enums'
 
 export function drawImage(
     ctx:CanvasRenderingContext2D, 

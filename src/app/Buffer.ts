@@ -1,4 +1,6 @@
 
+import { map } from '../utils/calc'
+
 const maxState:number = 4
 
 export default class Buffer {
@@ -36,8 +38,4 @@ export default class Buffer {
         return true
     }
 
-}
-
-function map(n:number, start1:number, stop1:number, start2:number, stop2:number):number {
-    return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2
 }

@@ -1,5 +1,5 @@
 
-import { MoveOptions } from '../docs/interfaces'
+import { MoveOptions } from '../config/interfaces'
 import Fight from './Fight'
 
 export default class Move {
