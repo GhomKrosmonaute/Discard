@@ -2,10 +2,10 @@ import { map } from '../utils/calc'
 import { Buffable, Tag, Target } from "./enums"
 import { MoveOptions } from './interfaces'
 
-const buffables = Object.values(Buffable)
+const buffables:Buffable[] = Object.values(Buffable)
 const moves:MoveOptions[] = []
 
-// stat
+// buffable
 moves.push({
     name: 'debuff',
     tags: [Tag.Stat,Tag.Debuff],
@@ -20,38 +20,38 @@ moves.push({
     nitro: 3,
     debuff: [Buffable.All]
 })
-for(const stat of buffables){
+for(const buffable of buffables){
     moves.push({
-        name: stat + 'debuff',
+        name: buffable + 'debuff',
         tags: [Tag.Stat,Tag.Debuff],
         targets: [Target.Ally,Target.Me,Target.Ennemy],
         nitro: 1,
-        debuff: [stat as Buffable]
+        debuff: [buffable]
     })
     moves.push({
-        name: stat + ' team debuff',
+        name: buffable + ' team debuff',
         tags: [Tag.Stat,Tag.Debuff,Tag.Group],
         targets: [Target.Allies,Target.Ennemies],
         nitro: 2,
-        debuff: [stat as Buffable]
+        debuff: [buffable]
     })
     for(let i=1; i<3; i++){
         moves.push({
-            name: stat + ' boost',
+            name: buffable + ' boost',
             tags: [Tag.Stat,Tag.Buff,Tag.Bonus],
             targets: [Target.Ally,Target.Me],
             nitro: i,
             buff: [
-                [stat as Buffable,i]
+                [buffable,i]
             ]
         })
         moves.push({
-            name: stat + ' decrease',
+            name: buffable + ' decrease',
             tags: [Tag.Stat,Tag.Buff,Tag.Malus],
             targets: [Target.Ennemy],
             nitro: i,
             buff: [
-                [stat as Buffable,-i]
+                [buffable,-i]
             ]
         })
     }
@@ -64,6 +64,13 @@ for(let i=1; i<5; i++){
         tags: [Tag.Attack],
         targets: [Target.Ennemy],
         nitro: i,
+        damage: i
+    })
+    moves.push({
+        name: 'group attack',
+        tags: [Tag.Attack,Tag.Group],
+        targets: [Target.Ennemies],
+        nitro: i * 2,
         damage: i
     })
 }

@@ -1,33 +1,36 @@
 
-import * as vectors from '../config/vectors.json'
+import vectors from '../config/vectors.js'
 import { CanvasRenderingContext2D, Image } from 'canvas'
-import { VectorsName } from '../config/enums'
+import { VectorName } from '../config/enums'
+import { Vector } from '../config/interfaces'
 
 export function drawImage(
     ctx:CanvasRenderingContext2D, 
     image:Image, 
-    vectorsName:VectorsName = VectorsName.Card
+    vectorName:VectorName = VectorName.Card
 ){
+    const vector:Vector = vectors.find( v => v.name === vectorName )
     ctx.drawImage( image, 
-        vectors[vectorsName].x, 
-        vectors[vectorsName].y, 
-        vectors[vectorsName].width, 
-        vectors[vectorsName].height
+        vector.x, 
+        vector.y, 
+        vector.width, 
+        vector.height
     )
 }
 
 export function drawText(
     ctx:CanvasRenderingContext2D,
     text:string,
-    vectorsName:VectorsName,
+    vectorName:VectorName,
     color:string = '#7289DA'
 ){
+    const vector:Vector = vectors.find( v => v.name === vectorName )
     ctx.textBaseline = 'top'
-    ctx.font = `normal ${vectors[vectorsName].height}px Arial`
+    ctx.font = `normal ${vector.height}px Arial`
     ctx.fillStyle = color
     ctx.fillText( text,
-        vectors[vectorsName].x, 
-        vectors[vectorsName].y, 
-        vectors[vectorsName].width
+        vector.x,
+        vector.y, 
+        vector.width, 
     )
 }

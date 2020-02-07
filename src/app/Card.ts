@@ -4,7 +4,7 @@ import {Canvas as CanvasES6} from 'canvas'
 import Client from './Client'
 import { Attachment } from 'discord.js'
 import { drawImage, drawText } from '../utils/drawing'
-import { VectorsName } from '../config/enums'
+import { VectorName } from '../config/enums'
 import { CardData, DiscardGuildMember, Theme } from '../config/interfaces'
 import Deck from './Deck'
 import Player from './Player'
@@ -78,13 +78,13 @@ export default class Card {
         const ctx = canvas.getContext('2d')
 
         drawImage( ctx, this.theme.background )
-        drawImage( ctx, await this.player.getAvatar(), VectorsName.Avatar )
-        drawImage( ctx, await this.deck.getIcon(), VectorsName.GuildIcon )
+        drawImage( ctx, await this.player.getAvatar(), VectorName.Avatar )
+        drawImage( ctx, await this.deck.getIcon(), VectorName.GuildIcon )
         drawImage( ctx, this.theme.middle )
-        drawText( ctx, this.member.guild.name, VectorsName.GuildName )
-        drawText( ctx, 'Card: ' + this.member.displayName, VectorsName.InfoTop, this.member.displayHexColor )
-        drawText( ctx, 'Player: ' + this.member.user.username, VectorsName.InfoBottom )
-        drawText( ctx, `Bla bla bla\nBliblibli\nEt tout et tout...\nBite`, VectorsName.Body, '#ffffff' )
+        drawText( ctx, this.member.guild.name, VectorName.GuildName )
+        drawText( ctx, 'Card: ' + this.member.displayName, VectorName.InfoTop, this.member.displayHexColor )
+        drawText( ctx, 'Player: ' + this.member.user.username, VectorName.InfoBottom )
+        drawText( ctx, `Zone ou il y aura les compétences.`, VectorName.Body, '#ffffff' )
         drawImage( ctx, this.theme.foreground )
 
         return canvas

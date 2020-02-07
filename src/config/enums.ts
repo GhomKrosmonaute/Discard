@@ -24,7 +24,7 @@ export enum Tag {
     Group = 'group'
 }
 
-export enum VectorsName {
+export enum VectorName {
     Card = 'card',
     Avatar = 'avatar',
     GuildIcon = 'guildIcon',

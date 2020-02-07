@@ -1,5 +1,5 @@
 
-import { Tag, Target, Buffable } from './enums'
+import { Tag, Target, Buffable, VectorName } from './enums'
 import { Guild, GuildMember, User } from 'discord.js'
 import Deck from '../app/Deck'
 import Card from '../app/Card'
@@ -14,6 +14,14 @@ export interface MoveOptions {
     buff?: [Buffable,number][]
     debuff?: Buffable[]
     damage?: number
+}
+
+export interface Vector {
+    name: VectorName,
+    x: number,
+    y:number,
+    width:number,
+    height:number
 }
 
 export interface Theme {

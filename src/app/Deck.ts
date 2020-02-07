@@ -1,11 +1,10 @@
 
+const Canvas = require('canvas')
+import {Canvas as CanvasES6, Image } from 'canvas'
 import Client from './Client'
 import { DiscardGuild, DeckData } from '../config/interfaces'
-import { Snowflake, Collection } from 'discord.js'
+import { Snowflake, Collection, Attachment } from 'discord.js'
 import Card from './Card'
-import { Image } from 'canvas'
-
-const Canvas = require('canvas')
 
 export default class Deck {
 
@@ -51,5 +50,21 @@ export default class Deck {
     public forEach( callback:any ):void { this.cards.forEach(callback) }
     public filter( callback:any ):Collection<string,Card> { return this.cards.filter(callback) }
     public map( callback:any ):Card[] { return this.cards.map(callback) }
+
+    public async getCanvas():Promise<CanvasES6>|never {
+
+        await this.discard.loaded
+
+        const canvas = Canvas.createCanvas( 400, 600 )
+        const ctx = canvas.getContext('2d')
+
+        // drawing
+
+        return canvas
+    }
+
+    public async getAttachment():Promise<Attachment> {
+        return new Attachment( (await this.getCanvas()).toBuffer(), `deck.png` )
+    }
 
 }
