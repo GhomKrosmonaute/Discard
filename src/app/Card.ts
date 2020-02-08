@@ -3,11 +3,13 @@ const Canvas = require('canvas')
 import {Canvas as CanvasES6} from 'canvas'
 import Client from './Client'
 import { Attachment } from 'discord.js'
+import { DiscordColor } from '../config/enums'
 import { drawImage, drawText } from '../utils/drawing'
 import { VectorName, ThemeName } from '../config/types'
 import { CardData, DiscardGuildMember, Theme } from '../config/interfaces'
 import Deck from './Deck'
 import Player from './Player'
+import vectors from '../config/vectors'
 
 export default class Card {
 
@@ -65,27 +67,49 @@ export default class Card {
     public get deck():Deck { return this.discard.getDeck( this.member.guild ) }
     public get player():Player { return this.discard.getPlayer( this.member.user ) }
 
-    public get theme():Theme { return this.discard.themes.get(this.discard.getPlayer( this.member.user ).theme) }
-    public setTheme( theme:ThemeName ):void { this.discard.getPlayer( this.member.user ).theme = theme }
+    public getTheme():Theme { return this.player.getTheme() }
+    public setTheme( theme:ThemeName ):void { this.player.setTheme(theme) }
 
     public async getCanvas():Promise<CanvasES6>|never {
 
         await this.discard.loaded
 
-        const canvas = Canvas.createCanvas( 400, 600 )
+        const weight:number = 3
+
+        const theme = this.getTheme()
+        const cardVector = vectors.find( v => v.name === 'card' )
+
+        const canvas:CanvasES6 = Canvas.createCanvas( cardVector.width, cardVector.height )
         const ctx = canvas.getContext('2d')
 
-        drawImage( ctx, this.theme.background )
+        // this.member.displayHexColor
+
+        drawImage( ctx, theme.background )
         drawImage( ctx, await this.player.getAvatar(), 'avatar' )
         drawImage( ctx, await this.deck.getIcon(), 'guildIcon', true )
-        drawImage( ctx, this.theme.middle )
+        drawImage( ctx, theme.middle )
         drawText( ctx, this.member.guild.name, 'guildName' )
         drawText( ctx, 'Player: ' + this.member.user.username, 'infoTop' )
-        drawText( ctx, 'Card: ' + this.member.displayName, 'infoBottom', this.member.displayHexColor )
-        drawText( ctx, `Zone ou il y aura les compétences.`, 'body', this.theme.config.textColor )
-        drawImage( ctx, this.theme.foreground )
+        drawText( ctx, 'Card: ' + this.member.displayName, 'infoBottom' )
+        drawText( ctx, `Zone ou il y aura les compétences.`, 'body', theme.config.textColor )
+        drawImage( ctx, theme.foreground )
 
-        return canvas
+        const cardeCanvas:CanvasES6 = Canvas.createCanvas( 
+            cardVector.width + (weight * 2), 
+            cardVector.height + (weight * 2)
+        )
+        const cadreCtx = cardeCanvas.getContext('2d')
+
+        cadreCtx.fillStyle = DiscordColor.Blue
+        cadreCtx.fillRect(
+            cardVector.x,
+            cardVector.y, 
+            cardVector.width + (weight * 2), 
+            cardVector.height + (weight * 2) 
+        )
+        cadreCtx.drawImage( canvas, weight, weight )
+
+        return cardeCanvas
     }
 
     public async getAttachment():Promise<Attachment> {

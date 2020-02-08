@@ -3,6 +3,7 @@ import vectors from '../config/vectors.js'
 import { CanvasRenderingContext2D, Image } from 'canvas'
 import { VectorName } from '../config/types'
 import { Vector } from '../config/interfaces'
+import { DiscordColor } from '../config/enums.js'
 
 export function drawImage(
     ctx:CanvasRenderingContext2D, 
@@ -37,7 +38,7 @@ export function drawText(
     ctx:CanvasRenderingContext2D,
     text:string,
     vectorName:VectorName,
-    color:string = '#7289DA'
+    color:string = DiscordColor.Blue
 ){
     const vector:Vector = vectors.find( v => v.name === vectorName )
     ctx.textBaseline = 'top'

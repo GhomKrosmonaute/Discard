@@ -1,7 +1,7 @@
 
 import Client from './Client'
 import { Image } from 'canvas'
-import { DiscardUser, PlayerData } from '../config/interfaces'
+import { DiscardUser, PlayerData, Theme } from '../config/interfaces'
 import Card from './Card'
 import { ThemeName } from '../config/types'
 
@@ -42,12 +42,10 @@ export default class Player {
             .map( guild => this.discard.getCard(guild.members.get(this.user.id)) )
     }
 
-    public set theme( theme:ThemeName ){
-        this.enmap.set( this.user.id, theme, 'theme' )
+    public setTheme( themeName:ThemeName ){
+        if(this.discard.themes.has(themeName))
+        this.enmap.set( this.user.id, themeName, 'theme' )
     }
-
-    public get theme():ThemeName {
-        return this.enmap.get( this.user.id, 'theme' ) as ThemeName
-    }
+    public getTheme():Theme { return this.discard.themes.get(this.enmap.get( this.user.id, 'theme' ) as ThemeName) }
 
 }
