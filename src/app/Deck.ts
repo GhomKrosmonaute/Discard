@@ -17,12 +17,12 @@ export default class Deck {
         this.discard = discard
         this.guild = guild
 
-        this.enmap.ensure( guild.id, {
+        const data:DeckData = {
             elo: 1000,
             energy: 10
-        })
+        }
 
-        guild.deck = this
+        this.enmap.ensure( guild.id, data )
 
     }
 

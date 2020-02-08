@@ -1,5 +1,5 @@
 
-import { map } from '../utils/calc'
+import { xprod } from '../utils/calc'
 
 const maxState:number = 4
 
@@ -13,7 +13,7 @@ export default class Buffer {
     }
 
     public get stat():number {
-        return map(this._state, 0, maxState, this._stat, this._stat * 2)
+        return xprod(this._state, 0, maxState, this._stat, this._stat * 2)
     }
 
     public buff( raise:boolean = false ):boolean {

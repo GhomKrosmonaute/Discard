@@ -1,4 +1,4 @@
-import { map } from '../utils/calc'
+import { xprod } from '../utils/calc'
 import { Buffable, Tag, Target } from "./enums"
 import { MoveOptions } from './interfaces'
 

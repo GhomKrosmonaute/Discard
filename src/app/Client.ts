@@ -48,20 +48,20 @@ export default class Client {
     }
 
     public getDeck( guild:Guild ): Deck {
-        if((guild as any).deck) return (guild as DiscardGuild).deck
-        new Deck( this, (guild as DiscardGuild) )
+        if((guild as any).deck) return (guild as DiscardGuild).deck;
+        (guild as DiscardGuild).deck = new Deck( this, (guild as DiscardGuild) )
         return (guild as DiscardGuild).deck
     }
 
     public getCard( member:GuildMember ): Card {
-        if((member as any).card) return (member as DiscardGuildMember).card
-        new Card( this, (member as DiscardGuildMember) )
+        if((member as any).card) return (member as DiscardGuildMember).card;
+        (member as DiscardGuildMember).card = new Card( this, (member as DiscardGuildMember) )
         return (member as DiscardGuildMember).card
     }
 
     public getPlayer( user:User ): Player {
-        if((user as any).player) return (user as DiscardUser).player
-        new Player( this, (user as DiscardUser) )
+        if((user as any).player) return (user as DiscardUser).player;
+        (user as DiscardUser).player = new Player( this, (user as DiscardUser) )
         return (user as DiscardUser).player
     }
 

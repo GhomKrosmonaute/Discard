@@ -39,8 +39,6 @@ export default class Card {
         }
 
         this.enmap.ensure( member.guild.id + '-' + member.id, data)
-        
-        member.card = this
 
     }
 

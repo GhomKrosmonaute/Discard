@@ -23,8 +23,6 @@ export default class Player {
 
         this.discard.enmap.ensure( user.id, playerData)
 
-        user.player = this
-
     }
 
     public get data():PlayerData { return this.enmap.get( this.user.id ) }
