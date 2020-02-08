@@ -3,6 +3,7 @@ import Client from './Client'
 import { Image } from 'canvas'
 import { DiscardUser, PlayerData } from '../config/interfaces'
 import Card from './Card'
+import { ThemeName } from '../config/types'
 
 const Canvas = require('canvas')
 
@@ -41,13 +42,12 @@ export default class Player {
             .map( guild => this.discard.getCard(guild.members.get(this.user.id)) )
     }
 
-    public set theme( theme:string ){
-        if(this.discard.themes.hasOwnProperty(theme))
-        this.enmap.set( this.user.id, 'theme', theme )
+    public set theme( theme:ThemeName ){
+        this.enmap.set( this.user.id, theme, 'theme' )
     }
 
-    public get theme():string {
-        return this.enmap.get( this.user.id, 'theme' )
+    public get theme():ThemeName {
+        return this.enmap.get( this.user.id, 'theme' ) as ThemeName
     }
 
 }

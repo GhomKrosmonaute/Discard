@@ -1,5 +1,5 @@
 
-import { Tag, Target, Buffable, VectorName } from './enums'
+import { Tag, Target, Buffable, VectorName, ThemeName } from './types'
 import { Guild, GuildMember, User } from 'discord.js'
 import Deck from '../app/Deck'
 import Card from '../app/Card'
@@ -27,7 +27,12 @@ export interface Vector {
 export interface Theme {
     background: Image,
     foreground: Image,
-    middle: Image
+    middle: Image,
+    config: ThemeConfig
+}
+
+export interface ThemeConfig {
+    textColor: string
 }
 
 export interface DeckData {
@@ -47,7 +52,7 @@ export interface CardData {
 }
 
 export interface PlayerData {
-    theme: string
+    theme: ThemeName
 }
 
 export interface DiscardGuild extends Guild {

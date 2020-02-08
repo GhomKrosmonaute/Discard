@@ -4,7 +4,7 @@ import {Canvas as CanvasES6} from 'canvas'
 import Client from './Client'
 import { Attachment } from 'discord.js'
 import { drawImage, drawText } from '../utils/drawing'
-import { VectorName } from '../config/enums'
+import { VectorName, ThemeName } from '../config/types'
 import { CardData, DiscardGuildMember, Theme } from '../config/interfaces'
 import Deck from './Deck'
 import Player from './Player'
@@ -65,8 +65,8 @@ export default class Card {
     public get deck():Deck { return this.discard.getDeck( this.member.guild ) }
     public get player():Player { return this.discard.getPlayer( this.member.user ) }
 
-    public get theme():Theme { return this.discard.themes[this.discard.getPlayer( this.member.user ).theme] }
-    public setTheme( theme:string ){ this.discard.getPlayer( this.member.user ).theme = theme }
+    public get theme():Theme { return this.discard.themes.get(this.discard.getPlayer( this.member.user ).theme) }
+    public setTheme( theme:ThemeName ):void { this.discard.getPlayer( this.member.user ).theme = theme }
 
     public async getCanvas():Promise<CanvasES6>|never {
 
@@ -76,13 +76,13 @@ export default class Card {
         const ctx = canvas.getContext('2d')
 
         drawImage( ctx, this.theme.background )
-        drawImage( ctx, await this.player.getAvatar(), VectorName.Avatar )
-        drawImage( ctx, await this.deck.getIcon(), VectorName.GuildIcon )
+        drawImage( ctx, await this.player.getAvatar(), 'avatar' )
+        drawImage( ctx, await this.deck.getIcon(), 'guildIcon', true )
         drawImage( ctx, this.theme.middle )
-        drawText( ctx, this.member.guild.name, VectorName.GuildName )
-        drawText( ctx, 'Card: ' + this.member.displayName, VectorName.InfoTop, this.member.displayHexColor )
-        drawText( ctx, 'Player: ' + this.member.user.username, VectorName.InfoBottom )
-        drawText( ctx, `Zone ou il y aura les compétences.`, VectorName.Body, '#ffffff' )
+        drawText( ctx, this.member.guild.name, 'guildName' )
+        drawText( ctx, 'Player: ' + this.member.user.username, 'infoTop' )
+        drawText( ctx, 'Card: ' + this.member.displayName, 'infoBottom', this.member.displayHexColor )
+        drawText( ctx, `Zone ou il y aura les compétences.`, 'body', this.theme.config.textColor )
         drawImage( ctx, this.theme.foreground )
 
         return canvas

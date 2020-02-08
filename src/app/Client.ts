@@ -1,12 +1,13 @@
 
-import { Client as DiscordClient, Guild, GuildMember, User } from 'discord.js'
-import { DiscardGuild, DiscardGuildMember, DiscardUser, MoveOptions } from '../config/interfaces'
+import { Client as DiscordClient, Guild, GuildMember, User, Collection } from 'discord.js'
+import { DiscardGuild, DiscardGuildMember, DiscardUser, MoveOptions, Theme } from '../config/interfaces'
 import { promises as fs } from 'fs'
 import { loadImage } from 'canvas'
 import Deck from './Deck'
 import Card from './Card'
 import Player from './Player'
 import moveOptions from '../config/moves'
+import { ThemeName } from '../config/types'
 
 const path = require('path')
 const Enmap = require('enmap')
@@ -16,7 +17,7 @@ export default class Client {
     public client:DiscordClient
     public enmap:any
     public loaded:Promise<Client>
-    public themes:any
+    public themes:Collection<ThemeName,Theme>
     public moveOptions:MoveOptions[]
 
     constructor( client:DiscordClient, name:string = 'discard' ){
@@ -26,17 +27,17 @@ export default class Client {
         this.moveOptions = moveOptions
 
         this.loaded = new Promise( async resolve => {
-            this.themes = {}
-            let images = await fs.readdir('./themes')
-            const themes = images.filter( name => !name.includes('.') )
-            for(const theme of themes){
-                images = await fs.readdir(path.resolve('./themes',theme))
-                this.themes[theme] = {}
-                for(const image of images){
-                    this.themes[theme][image.replace('.png','')] = await loadImage(
-                        path.resolve('./themes',theme,image)
-                    )
+            this.themes = new Collection
+            let maybeThemes = await fs.readdir('./themes')
+            const themeNames = maybeThemes.filter( name => !name.includes('.') )
+            for(const themeName of themeNames){
+                const theme:Theme = {
+                    background: await loadImage( path.resolve('./themes',themeName,'background.png')),
+                    middle: await loadImage( path.resolve('./themes',themeName,'middle.png')),
+                    foreground: await loadImage( path.resolve('./themes',themeName,'foreground.png')),
+                    config: require( path.resolve('./themes',themeName,'config.json') )
                 }
+                this.themes.set( themeName as ThemeName, theme )
             }
             resolve(this)
         })

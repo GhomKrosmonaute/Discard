@@ -2,7 +2,7 @@
 const Canvas = require('canvas')
 import {Canvas as CanvasES6, Image } from 'canvas'
 import Client from './Client'
-import { Tag, Target, Buffable } from '../config/enums'
+import { Tag, Target, Buffable } from '../config/types'
 import { MoveOptions } from '../config/interfaces'
 import Fight from './Fight'
 import { Attachment } from 'discord.js'

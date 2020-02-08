@@ -1,45 +1,45 @@
 import { xprod } from '../utils/calc'
-import { Buffable, Tag, Target } from "./enums"
+import { Buffable, Tag, Target } from "./types"
 import { MoveOptions } from './interfaces'
 
-const buffables:Buffable[] = Object.values(Buffable)
+const buffables:Buffable[] = [ 'attack', 'speed', 'all' ]
 const moves:MoveOptions[] = []
 
 // buffable
 moves.push({
     name: 'debuff',
-    tags: [Tag.Stat,Tag.Debuff],
-    targets: [Target.Ally,Target.Me,Target.Ennemy],
+    tags: ['stat','debuff'],
+    targets: ['ally','me','ennemy'],
     nitro: 2,
-    debuff: [Buffable.All]
+    debuff: ['all']
 })
 moves.push({
     name: 'global debuff',
-    tags: [Tag.Stat,Tag.Debuff],
-    targets: [Target.Everyone],
+    tags: ['stat','debuff'],
+    targets: ['everyone'],
     nitro: 3,
-    debuff: [Buffable.All]
+    debuff: ['all']
 })
 for(const buffable of buffables){
     moves.push({
         name: buffable + 'debuff',
-        tags: [Tag.Stat,Tag.Debuff],
-        targets: [Target.Ally,Target.Me,Target.Ennemy],
+        tags: ['stat','debuff'],
+        targets: ['ally','me','ennemy'],
         nitro: 1,
         debuff: [buffable]
     })
     moves.push({
         name: buffable + ' team debuff',
-        tags: [Tag.Stat,Tag.Debuff,Tag.Group],
-        targets: [Target.Allies,Target.Ennemies],
+        tags: ['stat','debuff','group'],
+        targets: ['allies','ennemies'],
         nitro: 2,
         debuff: [buffable]
     })
     for(let i=1; i<3; i++){
         moves.push({
             name: buffable + ' boost',
-            tags: [Tag.Stat,Tag.Buff,Tag.Bonus],
-            targets: [Target.Ally,Target.Me],
+            tags: ['stat','buff','bonus'],
+            targets: ['ally','me'],
             nitro: i,
             buff: [
                 [buffable,i]
@@ -47,8 +47,8 @@ for(const buffable of buffables){
         })
         moves.push({
             name: buffable + ' decrease',
-            tags: [Tag.Stat,Tag.Buff,Tag.Malus],
-            targets: [Target.Ennemy],
+            tags: ['stat','buff','malus'],
+            targets: ['ennemy'],
             nitro: i,
             buff: [
                 [buffable,-i]
@@ -61,16 +61,16 @@ for(const buffable of buffables){
 for(let i=1; i<5; i++){
     moves.push({
         name: 'attack',
-        tags: [Tag.Attack],
-        targets: [Target.Ennemy],
+        tags: ['attack'],
+        targets: ['ennemy'],
         nitro: i,
         damage: i
     })
     moves.push({
         name: 'group attack',
-        tags: [Tag.Attack,Tag.Group],
-        targets: [Target.Ennemies],
-        nitro: i * 2,
+        tags: ['attack','group'],
+        targets: ['ennemies'],
+        nitro: i * 2.5,
         damage: i
     })
 }

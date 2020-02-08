@@ -41,9 +41,9 @@ export default class Deck {
         return cards
     }
 
-    public async getIcon():Promise<Image> {
-        if(!this.icon)
-        this.icon = await Canvas.loadImage(this.guild.iconURL)
+    public async getIcon( force:boolean = false ):Promise<Image> {
+        if(!this.icon || force)
+        this.icon = await Canvas.loadImage(this.guild.iconURL.replace(/(?:gif|jpe?g)$/,'png'))
         return this.icon
     }
 

@@ -1,21 +1,36 @@
 
 import vectors from '../config/vectors.js'
 import { CanvasRenderingContext2D, Image } from 'canvas'
-import { VectorName } from '../config/enums'
+import { VectorName } from '../config/types'
 import { Vector } from '../config/interfaces'
 
 export function drawImage(
     ctx:CanvasRenderingContext2D, 
     image:Image, 
-    vectorName:VectorName = VectorName.Card
+    vectorName:VectorName = 'card',
+    rounded:boolean = false
 ){
     const vector:Vector = vectors.find( v => v.name === vectorName )
+    if(rounded){
+        ctx.save()
+        ctx.beginPath()
+        ctx.arc(
+            vector.x + vector.width / 2,
+            vector.y + vector.height / 2, 
+            ((vector.width + vector.height) / 2) / 2,
+            0, Math.PI*2
+        )
+        ctx.closePath()
+        ctx.clip()
+    }
     ctx.drawImage( image, 
         vector.x, 
         vector.y, 
         vector.width, 
         vector.height
     )
+    if(rounded)
+    ctx.restore()
 }
 
 export function drawText(

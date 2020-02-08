@@ -1,0 +1,5 @@
+export type Target = 'allies' | 'ally' | 'ennemies' | 'ennemy' | 'me' | 'everyone'
+export type Buffable = 'speed' | 'attack' | 'all'
+export type Tag = 'attack' | 'heal' | 'stat' | 'debuff' | 'buff' | 'bonus' | 'malus' | 'group'
+export type VectorName =  'card' | 'avatar' | 'guildIcon' | 'guildName' | 'infoTop' | 'infoBottom' | 'body'
+export type ThemeName = 'dark' | 'light'
