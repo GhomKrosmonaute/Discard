@@ -16,14 +16,10 @@ export default class Move implements MoveOptions {
     public buff?: [Buffable, number][]
     public debuff?: Buffable[]
     public damage?: number
-    public fight:Fight
     public canvas:CanvasES6
 
-    constructor( fight:Fight, options:MoveOptions ){
-        
-        this.fight = fight
+    constructor( public fight:Fight, options:MoveOptions ){
         Object.assign( this, options )
-
     }
 
     public get discard():Client { return this.fight.discard }
